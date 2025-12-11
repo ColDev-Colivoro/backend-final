@@ -247,7 +247,7 @@ El sistema ofrece **tres formas** de interactuar con la API. Cada una está dise
 2. Se abrirá una ventana con **dos opciones de autenticación**:
    - `cookieAuth (apiKey)` → **NO lo uses** (es para la API Navegable)
    - `jwtAuth (http, Bearer)` → **Usa este** ✅
-3. En el campo de `jwtAuth`, escribe: `Bearer ` seguido del token que copiaste
+3. En el campo de `jwtAuth`, escribe: `Bearer ` seguido del **token que copiaste en el PASO 1** (el valor de `access`)
    - Ejemplo: `Bearer eyJhbGciOiJIUzI1NI1NiJ9.eyJ0b2tlbl90eXBlIjoi...`
 4. Click en **"Authorize"** y luego **"Close"**
 5. ✅ Ahora verás candados cerrados 🔒 en todos los endpoints protegidos

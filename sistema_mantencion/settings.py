@@ -87,6 +87,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Custom User Model
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
+# Login Redirect
+LOGIN_REDIRECT_URL = '/api/'  # Redirigir a API Root después del login
+
 # DRF Config
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',

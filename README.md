@@ -3,7 +3,7 @@
 
 Backend profesional para la gestión de empresas, equipos técnicos y órdenes de trabajo de mantenimiento. Desarrollado como parte de la Evaluación 4 (TI3041).
 
-## 🚀 Características "Nivel 10"
+## 🚀 Características Destacadas
 *   **API RESTful Completa:** CRUD para Empresas, Equipos, Técnicos, Planes y Órdenes.
 *   **Documentación Interactiva:** Swagger/OpenAPI autogenerado en español.
 *   **Seguridad:** Autenticación JWT con rotación de tokens y permisos granulares.
@@ -116,18 +116,18 @@ A continuación se listan todos los endpoints disponibles. Cabe destacar que cad
 | Recurso | Ruta API | Descripción |
 | :--- | :--- | :--- |
 | **Auth** | `/api/auth/login/` | Obtener Token JWT |
-| **Empresas** | `/api/v1/empresas/` | Gestión de Clientes |
-| **Equipos** | `/api/v1/equipos/` | Inventario de Máquinas |
-| **Técnicos** | `/api/v1/tecnicos/` | Perfiles de Staff |
-| **Planes** | `/api/v1/planes-mantencion/` | Definición de rutinas |
-| **Órdenes** | `/api/v1/ordenes-trabajo/` | Gestión de flujos de trabajo en terreno |
+| **Empresas** | `/api/empresas/` | Gestión de Clientes |
+| **Equipos** | `/api/equipos/` | Inventario de Máquinas |
+| **Técnicos** | `/api/tecnicos/` | Perfiles de Staff |
+| **Planes** | `/api/planes-mantencion/` | Definición de rutinas |
+| **Órdenes** | `/api/ordenes-trabajo/` | Gestión de flujos de trabajo en terreno |
 
 ## 👥 Autores
 *   **Jose Colivoro** - *Desarrollador Backend*
 
 ## 🔮 Puntos de Mejora y Futuro (Roadmap)
 
-Aunque el sistema cumple con el estándar "Nivel 10", siempre hay espacio para crecer. Las siguientes son mejoras propuestas para una versión 2.0:
+Aunque el sistema cumple con altos estándares de calidad, siempre hay espacio para crecer. Las siguientes son mejoras propuestas para una versión 2.0:
 
 1.  **Dockerización:** Crear un `Dockerfile` y `docker-compose.yml` para desplegar el entorno completo (Django + DB + Redis) con un solo comando.
 2.  **Notificaciones en Tiempo Real:** Implementar correos electrónicos automáticos a los técnicos cuando se les asigna una nueva Orden de Trabajo (actualmente sugerido en el código).

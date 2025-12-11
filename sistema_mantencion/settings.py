@@ -101,7 +101,7 @@ REST_FRAMEWORK = {
 
 # Swagger Settings
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'API Mantención Industrial (Nivel 10)',
+    'TITLE': 'API Mantención Industrial',
     'DESCRIPTION': 'Documentación oficial del sistema de mantención industrial.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,

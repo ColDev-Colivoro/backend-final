@@ -1,0 +1,24 @@
+Creating test database for alias 'default'...
+
+F
+======================================================================
+FAIL: test_flujo_de_vida_mantenimiento (tests.test_flujo_e2e.FlujoCompletoTests.test_flujo_de_vida_mantenimiento)
+Simula el ciclo completo:
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\the_8\Desktop\backend final\tests\test_flujo_e2e.py", line 45, in test_flujo_de_vida_mantenimiento
+    self.assertEqual(res_empresa.status_code, status.HTTP_201_CREATED)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 400 != 201
+
+----------------------------------------------------------------------
+Ran 1 test in 3.021s
+
+FAILED (failures=1)
+Destroying test database for alias 'default'...
+
+Found 1 test(s).
+System check identified no issues (0 silenced).
+
+>>> INICIANDO TEST DE FLUJO COMPLETO (E2E) <<<
+ERROR creando empresa: {'rut': [ErrorDetail(string='RUT invßlido: dÝgito verificador incorrecto. Esperado: 6', code='invalid')]}

@@ -5,7 +5,14 @@ Ejecutar: python crear_superusuario.py
 import os
 import django
 
+import sys
+from pathlib import Path
+
 # Configurar Django
+# Agregar el directorio raíz del proyecto al path
+BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(BASE_DIR))
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistema_mantencion.settings')
 django.setup()
 

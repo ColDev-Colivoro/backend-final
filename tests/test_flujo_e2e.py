@@ -37,9 +37,11 @@ class FlujoCompletoTests(APITestCase):
         data_empresa = {
             'nombre': 'Industrias Biobío S.A.',
             'direccion': 'Parque Industrial 2020',
-            'rut': '76.888.999-K'
+            'rut': '76.888.999-6'
         }
         res_empresa = self.client.post(url_empresa, data_empresa, format='json')
+        if res_empresa.status_code != status.HTTP_201_CREATED:
+            print(f"ERROR creando empresa: {res_empresa.data}")
         self.assertEqual(res_empresa.status_code, status.HTTP_201_CREATED)
         empresa_id = res_empresa.data['id']
         print(f"✅ Empresa creada: ID {empresa_id}")

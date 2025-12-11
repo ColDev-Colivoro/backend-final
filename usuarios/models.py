@@ -1,7 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from .validators import validar_email_personalizado
+
 class Usuario(AbstractUser):
+    email = models.EmailField('dirección de correo electrónico', unique=True, validators=[validar_email_personalizado])
+
     class Meta:
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"

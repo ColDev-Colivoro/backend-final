@@ -1,0 +1,1479 @@
+openapi: 3.0.3
+info:
+  title: API Mantención Industrial
+  version: 1.0.0
+  description: Documentación oficial del sistema de mantención industrial.
+paths:
+  /api/:
+    get:
+      operationId: api_retrieve
+      description: Punto de entrada principal de la API con navegación a todos los
+        endpoints.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/auth/login/:
+    post:
+      operationId: api_auth_login_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/auth/refresh/:
+    post:
+      operationId: api_auth_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/empresas/:
+    get:
+      operationId: api_empresas_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Empresa'
+          description: ''
+    post:
+      operationId: api_empresas_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Empresa'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Empresa'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Empresa'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empresa'
+          description: ''
+  /api/empresas/{id}/:
+    get:
+      operationId: api_empresas_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Empresa.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empresa'
+          description: ''
+    put:
+      operationId: api_empresas_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Empresa.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Empresa'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Empresa'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Empresa'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empresa'
+          description: ''
+    patch:
+      operationId: api_empresas_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Empresa.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEmpresa'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEmpresa'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEmpresa'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empresa'
+          description: ''
+    delete:
+      operationId: api_empresas_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Empresa.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/equipos/:
+    get:
+      operationId: api_equipos_list
+      parameters:
+      - in: query
+        name: empresa
+        schema:
+          type: integer
+      - in: query
+        name: es_critico
+        schema:
+          type: boolean
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Equipo'
+          description: ''
+    post:
+      operationId: api_equipos_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Equipo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Equipo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Equipo'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipo'
+          description: ''
+  /api/equipos/{id}/:
+    get:
+      operationId: api_equipos_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Equipo.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipo'
+          description: ''
+    put:
+      operationId: api_equipos_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Equipo.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Equipo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Equipo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Equipo'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipo'
+          description: ''
+    patch:
+      operationId: api_equipos_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Equipo.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEquipo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEquipo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEquipo'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipo'
+          description: ''
+    delete:
+      operationId: api_equipos_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Equipo.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/ordenes-trabajo/:
+    get:
+      operationId: api_ordenes_trabajo_list
+      parameters:
+      - in: query
+        name: equipo
+        schema:
+          type: integer
+      - in: query
+        name: estado
+        schema:
+          type: string
+          enum:
+          - CANCELADA
+          - COMPLETADA
+          - EN_PROGRESO
+          - PROGRAMADA
+        description: |-
+          * `PROGRAMADA` - Programada
+          * `EN_PROGRESO` - En Progreso
+          * `COMPLETADA` - Completada
+          * `CANCELADA` - Cancelada
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - in: query
+        name: tecnico
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrdenTrabajo'
+          description: ''
+    post:
+      operationId: api_ordenes_trabajo_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrdenTrabajo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrdenTrabajo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrdenTrabajo'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdenTrabajo'
+          description: ''
+  /api/ordenes-trabajo/{id}/:
+    get:
+      operationId: api_ordenes_trabajo_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Orden de Trabajo.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdenTrabajo'
+          description: ''
+    put:
+      operationId: api_ordenes_trabajo_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Orden de Trabajo.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrdenTrabajo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrdenTrabajo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrdenTrabajo'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdenTrabajo'
+          description: ''
+    patch:
+      operationId: api_ordenes_trabajo_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Orden de Trabajo.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedOrdenTrabajo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedOrdenTrabajo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedOrdenTrabajo'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdenTrabajo'
+          description: ''
+    delete:
+      operationId: api_ordenes_trabajo_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Orden de Trabajo.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/planes-mantencion/:
+    get:
+      operationId: api_planes_mantencion_list
+      parameters:
+      - in: query
+        name: activo
+        schema:
+          type: boolean
+      - in: query
+        name: equipo
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlanMantencion'
+          description: ''
+    post:
+      operationId: api_planes_mantencion_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanMantencion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PlanMantencion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PlanMantencion'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanMantencion'
+          description: ''
+  /api/planes-mantencion/{id}/:
+    get:
+      operationId: api_planes_mantencion_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Plan de Mantención.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanMantencion'
+          description: ''
+    put:
+      operationId: api_planes_mantencion_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Plan de Mantención.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanMantencion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PlanMantencion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PlanMantencion'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanMantencion'
+          description: ''
+    patch:
+      operationId: api_planes_mantencion_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Plan de Mantención.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPlanMantencion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPlanMantencion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPlanMantencion'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanMantencion'
+          description: ''
+    delete:
+      operationId: api_planes_mantencion_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Plan de Mantención.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/tecnicos/:
+    get:
+      operationId: api_tecnicos_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tecnico'
+          description: ''
+    post:
+      operationId: api_tecnicos_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tecnico'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Tecnico'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Tecnico'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tecnico'
+          description: ''
+  /api/tecnicos/{id}/:
+    get:
+      operationId: api_tecnicos_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Técnico.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tecnico'
+          description: ''
+    put:
+      operationId: api_tecnicos_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Técnico.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tecnico'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Tecnico'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Tecnico'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tecnico'
+          description: ''
+    patch:
+      operationId: api_tecnicos_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Técnico.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTecnico'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTecnico'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTecnico'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tecnico'
+          description: ''
+    delete:
+      operationId: api_tecnicos_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Técnico.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/usuarios/:
+    get:
+      operationId: api_usuarios_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Usuario'
+          description: ''
+    post:
+      operationId: api_usuarios_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+          description: ''
+  /api/usuarios/{id}/:
+    get:
+      operationId: api_usuarios_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Usuario.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+          description: ''
+    put:
+      operationId: api_usuarios_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Usuario.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+          description: ''
+    patch:
+      operationId: api_usuarios_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Usuario.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUsuario'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUsuario'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUsuario'
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+          description: ''
+    delete:
+      operationId: api_usuarios_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Usuario.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Empresa:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nombre:
+          type: string
+          title: Nombre Empresa
+          maxLength: 255
+        direccion:
+          type: string
+          title: Dirección
+        rut:
+          type: string
+          description: 'Formato: 12.345.678-9 o 12345678-9'
+          maxLength: 20
+        creado_en:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Fecha de Creación
+      required:
+      - creado_en
+      - direccion
+      - id
+      - nombre
+      - rut
+    Equipo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        empresa:
+          type: integer
+          title: Empresa Propietaria
+        empresa_nombre:
+          type: string
+          title: Nombre Empresa
+          readOnly: true
+        nombre:
+          type: string
+          title: Nombre del Equipo
+          maxLength: 255
+        numero_serie:
+          type: string
+          title: Número de Serie
+          maxLength: 100
+        es_critico:
+          type: boolean
+          title: ¿Es Crítico?
+        fecha_instalacion:
+          type: string
+          format: date
+          title: Fecha de Instalación
+      required:
+      - empresa
+      - empresa_nombre
+      - fecha_instalacion
+      - id
+      - nombre
+      - numero_serie
+    EspecialidadEnum:
+      enum:
+      - ELECTRICO
+      - MECANICO
+      - SOFTWARE
+      - OTRO
+      type: string
+      description: |-
+        * `ELECTRICO` - Eléctrico
+        * `MECANICO` - Mecánico
+        * `SOFTWARE` - Software
+        * `OTRO` - Otro
+    EstadoEnum:
+      enum:
+      - PROGRAMADA
+      - EN_PROGRESO
+      - COMPLETADA
+      - CANCELADA
+      type: string
+      description: |-
+        * `PROGRAMADA` - Programada
+        * `EN_PROGRESO` - En Progreso
+        * `COMPLETADA` - Completada
+        * `CANCELADA` - Cancelada
+    OrdenTrabajo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        plan:
+          type: integer
+          title: Plan Base
+        plan_nombre:
+          type: string
+          title: Nombre del Plan
+          readOnly: true
+        equipo:
+          type: integer
+          title: Equipo Objetivo
+        equipo_detalle:
+          allOf:
+          - $ref: '#/components/schemas/Equipo'
+          readOnly: true
+        tecnico:
+          type: integer
+          title: Técnico Asignado
+        tecnico_detalle:
+          allOf:
+          - $ref: '#/components/schemas/Tecnico'
+          readOnly: true
+        estado:
+          $ref: '#/components/schemas/EstadoEnum'
+        fecha_programada:
+          type: string
+          format: date-time
+        completado_en:
+          type: string
+          format: date-time
+          nullable: true
+          title: Fecha Completado
+        notas:
+          type: string
+          title: Notas/Observaciones
+        esta_atrasada:
+          type: string
+          readOnly: true
+      required:
+      - equipo
+      - equipo_detalle
+      - esta_atrasada
+      - fecha_programada
+      - id
+      - plan
+      - plan_nombre
+      - tecnico
+      - tecnico_detalle
+    PatchedEmpresa:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nombre:
+          type: string
+          title: Nombre Empresa
+          maxLength: 255
+        direccion:
+          type: string
+          title: Dirección
+        rut:
+          type: string
+          description: 'Formato: 12.345.678-9 o 12345678-9'
+          maxLength: 20
+        creado_en:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Fecha de Creación
+    PatchedEquipo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        empresa:
+          type: integer
+          title: Empresa Propietaria
+        empresa_nombre:
+          type: string
+          title: Nombre Empresa
+          readOnly: true
+        nombre:
+          type: string
+          title: Nombre del Equipo
+          maxLength: 255
+        numero_serie:
+          type: string
+          title: Número de Serie
+          maxLength: 100
+        es_critico:
+          type: boolean
+          title: ¿Es Crítico?
+        fecha_instalacion:
+          type: string
+          format: date
+          title: Fecha de Instalación
+    PatchedOrdenTrabajo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        plan:
+          type: integer
+          title: Plan Base
+        plan_nombre:
+          type: string
+          title: Nombre del Plan
+          readOnly: true
+        equipo:
+          type: integer
+          title: Equipo Objetivo
+        equipo_detalle:
+          allOf:
+          - $ref: '#/components/schemas/Equipo'
+          readOnly: true
+        tecnico:
+          type: integer
+          title: Técnico Asignado
+        tecnico_detalle:
+          allOf:
+          - $ref: '#/components/schemas/Tecnico'
+          readOnly: true
+        estado:
+          $ref: '#/components/schemas/EstadoEnum'
+        fecha_programada:
+          type: string
+          format: date-time
+        completado_en:
+          type: string
+          format: date-time
+          nullable: true
+          title: Fecha Completado
+        notas:
+          type: string
+          title: Notas/Observaciones
+        esta_atrasada:
+          type: string
+          readOnly: true
+    PatchedPlanMantencion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        equipo:
+          type: integer
+        equipo_nombre:
+          type: string
+          title: Nombre del Equipo
+          readOnly: true
+        nombre:
+          type: string
+          title: Nombre del Plan
+          maxLength: 255
+        frecuencia_dias:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Frecuencia (Días)
+          description: Cada cuántos días se debe ejecutar este plan.
+        activo:
+          type: boolean
+          title: ¿Activo?
+    PatchedTecnico:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        usuario:
+          type: integer
+          title: Usuario de Sistema
+        usuario_detalle:
+          allOf:
+          - $ref: '#/components/schemas/Usuario'
+          readOnly: true
+        nombre_completo:
+          type: string
+          maxLength: 255
+        especialidad:
+          $ref: '#/components/schemas/EspecialidadEnum'
+        telefono:
+          type: string
+          title: Teléfono
+          maxLength: 20
+    PatchedUsuario:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          title: Nombre de usuario
+          description: 'Requerido. 150 carácteres como máximo. Únicamente letras,
+            dígitos y @/./+/-/_ '
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Dirección de correo electrónico
+          maxLength: 254
+        first_name:
+          type: string
+          title: Nombre
+          maxLength: 150
+        last_name:
+          type: string
+          title: Apellidos
+          maxLength: 150
+        is_staff:
+          type: boolean
+          title: Es staff
+          description: Indica si el usuario puede entrar en este sitio de administración.
+    PlanMantencion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        equipo:
+          type: integer
+        equipo_nombre:
+          type: string
+          title: Nombre del Equipo
+          readOnly: true
+        nombre:
+          type: string
+          title: Nombre del Plan
+          maxLength: 255
+        frecuencia_dias:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Frecuencia (Días)
+          description: Cada cuántos días se debe ejecutar este plan.
+        activo:
+          type: boolean
+          title: ¿Activo?
+      required:
+      - equipo
+      - equipo_nombre
+      - frecuencia_dias
+      - id
+      - nombre
+    Tecnico:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        usuario:
+          type: integer
+          title: Usuario de Sistema
+        usuario_detalle:
+          allOf:
+          - $ref: '#/components/schemas/Usuario'
+          readOnly: true
+        nombre_completo:
+          type: string
+          maxLength: 255
+        especialidad:
+          $ref: '#/components/schemas/EspecialidadEnum'
+        telefono:
+          type: string
+          title: Teléfono
+          maxLength: 20
+      required:
+      - id
+      - nombre_completo
+      - telefono
+      - usuario
+      - usuario_detalle
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - password
+      - refresh
+      - username
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    Usuario:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          title: Nombre de usuario
+          description: 'Requerido. 150 carácteres como máximo. Únicamente letras,
+            dígitos y @/./+/-/_ '
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Dirección de correo electrónico
+          maxLength: 254
+        first_name:
+          type: string
+          title: Nombre
+          maxLength: 150
+        last_name:
+          type: string
+          title: Apellidos
+          maxLength: 150
+        is_staff:
+          type: boolean
+          title: Es staff
+          description: Indica si el usuario puede entrar en este sitio de administración.
+      required:
+      - id
+      - username
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

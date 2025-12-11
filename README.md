@@ -175,50 +175,73 @@ Además de Swagger, el sistema incluye el **Panel de Administración** tradicion
 
 En este panel podrás crear, editar y eliminar registros con una interfaz gráfica familiar (similar a Excel o formularios web). Es la forma más intuitiva de probar el sistema sin conocimientos técnicos.
 
-## 📚 Formas de Probar el Sistema
+## 📚 Interfaces de Prueba del Sistema
 
-El proyecto ofrece **tres interfaces** para interactuar con la API, ordenadas de más intuitiva a más técnica:
+El sistema ofrece **tres formas** de interactuar con la API. Cada una está diseñada para diferentes niveles técnicos:
 
-### 1️⃣ **API Navegable (Recomendado para evaluación)**
-La forma más sencilla de probar el sistema. Es una interfaz HTML generada automáticamente por Django REST Framework.
+---
 
-**🔑 PASO 1: Autenticación**
-1. Ve a la **página principal**: [http://localhost:8000/api/](http://localhost:8000/api/)
-2. Haz clic en **"Log in"** (esquina superior derecha)
-3. Ingresa: `admin` / `admin123`
-4. ¡Listo! Ya puedes navegar por todos los módulos
+### 1️⃣ API Navegable de Django REST Framework ⭐ **(Recomendado)**
 
-**📋 URLs Completas del Sistema:**
+**¿Qué es?** Una interfaz HTML automática que convierte los endpoints en páginas web con formularios.
 
-| Categoría | Endpoint | URL Directa |
-|-----------|----------|-------------|
-| **🏠 Inicio** | API Root (Panel de Navegación) | [/api/](http://localhost:8000/api/) |
-| **🔐 Autenticación** | Login Visual | [/api-auth/login/](http://localhost:8000/api-auth/login/) |
-| | Logout | [/api-auth/logout/](http://localhost:8000/api-auth/logout/) |
+**¿Para quién?** Evaluadores, profesores y usuarios no técnicos. No requiere conocimientos de programación.
+
+**Cómo usarla:**
+1. **Página Principal:** [http://localhost:8000/api/](http://localhost:8000/api/)
+   - Verás un menú organizado por categorías (🔐 Autenticación, 🏢 Empresas, etc.)
+2. **Login:** Click en "Log in" (esquina superior derecha) → Usuario: `admin` | Contraseña: `admin123`
+3. **Navega:** Haz click en cualquier enlace para ver/crear/editar datos
+
+**URLs Directas:**
+
+| Módulo | Endpoint | URL |
+|--------|----------|-----|
+| **🏠 Inicio** | Menú Principal | [/api/](http://localhost:8000/api/) |
+| **🔐 Auth** | Login Visual | [/api-auth/login/](http://localhost:8000/api-auth/login/) |
 | | Token JWT | [/api/auth/login/](http://localhost:8000/api/auth/login/) |
 | **🏢 Empresas** | Lista/Crear | [/api/empresas/](http://localhost:8000/api/empresas/) |
-| | Ver/Editar (ID=1) | `/api/empresas/1/` |
 | **⚙️ Equipos** | Lista/Crear | [/api/equipos/](http://localhost:8000/api/equipos/) |
-| | Ver/Editar (ID=1) | `/api/equipos/1/` |
 | **👤 Usuarios** | Lista/Crear | [/api/usuarios/](http://localhost:8000/api/usuarios/) |
 | **🔧 Técnicos** | Lista/Crear | [/api/tecnicos/](http://localhost:8000/api/tecnicos/) |
 | **📅 Planes** | Lista/Crear | [/api/planes-mantencion/](http://localhost:8000/api/planes-mantencion/) |
 | **📋 Órdenes** | Lista/Crear | [/api/ordenes-trabajo/](http://localhost:8000/api/ordenes-trabajo/) |
 
 **Ventajas:**
-- ✅ **Formularios HTML nativos** para crear/editar datos (¡como Excel!)
-- ✅ **Login visual** en la esquina superior derecha
-- ✅ **Navegación por categorías** desde la página principal `/api/`
-- ✅ **Botones DELETE, PUT, POST** integrados
-- ✅ Sin instalaciones adicionales ni conocimientos técnicos
+- ✅ Formularios HTML (como Excel)
+- ✅ Login visual integrado
+- ✅ Navegación por categorías
+- ✅ Botones para DELETE/PUT/POST
 
-### 2️⃣ **Swagger UI (Para desarrolladores)**
-Documentación interactiva más técnica.
-- [http://localhost:8000/api/schema/swagger-ui/](http://localhost:8000/api/schema/swagger-ui/)
+---
 
-### 3️⃣ **ReDoc (Solo lectura)**
-Vista de documentación estática.
-- [http://localhost:8000/api/schema/redoc/](http://localhost:8000/api/schema/redoc/)
+### 2️⃣ Swagger UI (OpenAPI 3.0)
+
+**¿Qué es?** Documentación interactiva generada automáticamente desde el código.
+
+**¿Para quién?** Desarrolladores y usuarios técnicos que quieren probar endpoints desde un solo lugar.
+
+**Acceso:** [http://localhost:8000/api/schema/swagger-ui/](http://localhost:8000/api/schema/swagger-ui/)
+
+**Características:**
+- 📝 Documentación completa de schemas
+- 🔐 Sistema de autorización JWT
+- ✨ Prueba directa de endpoints
+- 📊 Visualización de modelos
+
+---
+
+### 3️⃣ ReDoc (Solo Lectura)
+
+**¿Qué es?** Vista estática de la documentación OpenAPI, sin interactividad.
+
+**¿Para quién?** Para consultar la estructura de la API sin ejecutar peticiones.
+
+**Acceso:** [http://localhost:8000/api/schema/redoc/](http://localhost:8000/api/schema/redoc/)
+
+**Uso:** Ideal para imprimir o enviar como referencia técnica.
+
+---
 
 ### 🎓 Guía de Prueba Paso a Paso (Tutorial)
 Para entender la lógica del sistema, recomendamos seguir este flujo en Swagger:

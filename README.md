@@ -157,7 +157,7 @@ python manage.py migrate
 
 **Opción A: Automático (Recomendado) ⭐**
 ```bash
-python crear_superusuario.py
+python scripts/crear_superusuario.py
 ```
 Este script crea automáticamente el usuario:
 - **Usuario:** `admin`
@@ -338,12 +338,6 @@ Para ejecutar las pruebas del sistema (Validaciones y Flujo E2E):
 python manage.py test
 ```
 
-### Crear Superusuario
-El script de creación de superusuario se encuentra en la carpeta `scripts/`. Para ejecutarlo:
-```bash
-python scripts/crear_superusuario.py
-```
-Este script creará un superusuario por defecto (`admin` / `admin123`) si no existe.
 
 ## 👥 Autores
 *   **Jose Colivoro** - *Desarrollador Backend*

@@ -8,6 +8,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 from usuarios.views import UsuarioViewSet, TecnicoViewSet
 from activos.views import EmpresaViewSet, EquipoViewSet
 from operaciones.views import PlanMantencionViewSet, OrdenTrabajoViewSet
+from .views import api_root
 
 router = DefaultRouter()
 router.register(r'usuarios', UsuarioViewSet)
@@ -18,12 +19,13 @@ router.register(r'planes-mantencion', PlanMantencionViewSet)
 router.register(r'ordenes-trabajo', OrdenTrabajoViewSet)
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/api/schema/swagger-ui/', permanent=False)), # Redirección raíz -> Swagger
+    path('', RedirectView.as_view(url='/api/', permanent=False)),  # Redirigir a API Root
     path('admin/', admin.site.urls),
+    path('api/', api_root, name='api-root'),  # Página principal navegable
     path('api/', include(router.urls)),
     
     # Auth - Session (para API Navegable)
-    path('api-auth/', include('rest_framework.urls')),  # Login/Logout visual
+    path('api-auth/', include('rest_framework.urls', namespace='api-auth')),  # Login/Logout visual
     
     # Auth - JWT (para aplicaciones externas)
     path('api/auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

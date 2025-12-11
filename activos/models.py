@@ -1,9 +1,15 @@
 from django.db import models
+from .validators import validar_rut_chileno
 
 class Empresa(models.Model):
     nombre = models.CharField(max_length=255, db_index=True, verbose_name="Nombre Empresa")
     direccion = models.TextField(verbose_name="Dirección")
-    rut = models.CharField(max_length=20, verbose_name="RUT")
+    rut = models.CharField(
+        max_length=20, 
+        verbose_name="RUT",
+        validators=[validar_rut_chileno],
+        help_text="Formato: 12.345.678-9 o 12345678-9"
+    )
     creado_en = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Creación")
 
     class Meta:

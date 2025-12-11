@@ -182,13 +182,33 @@ El proyecto ofrece **tres interfaces** para interactuar con la API, ordenadas de
 ### 1️⃣ **API Navegable (Recomendado para evaluación)**
 La forma más sencilla de probar el sistema. Es una interfaz HTML generada automáticamente por Django REST Framework.
 
-**Acceso:** Simplemente ve a cualquier endpoint en tu navegador, por ejemplo:
-- [http://localhost:8000/api/empresas/](http://localhost:8000/api/empresas/)
-- [http://localhost:8000/api/equipos/](http://localhost:8000/api/equipos/)
+**🔑 PASO 1: Autenticación**
+1. Ve a la **página principal**: [http://localhost:8000/api/](http://localhost:8000/api/)
+2. Haz clic en **"Log in"** (esquina superior derecha)
+3. Ingresa: `admin` / `admin123`
+4. ¡Listo! Ya puedes navegar por todos los módulos
+
+**📋 URLs Completas del Sistema:**
+
+| Categoría | Endpoint | URL Directa |
+|-----------|----------|-------------|
+| **🏠 Inicio** | API Root (Panel de Navegación) | [/api/](http://localhost:8000/api/) |
+| **🔐 Autenticación** | Login Visual | [/api-auth/login/](http://localhost:8000/api-auth/login/) |
+| | Logout | [/api-auth/logout/](http://localhost:8000/api-auth/logout/) |
+| | Token JWT | [/api/auth/login/](http://localhost:8000/api/auth/login/) |
+| **🏢 Empresas** | Lista/Crear | [/api/empresas/](http://localhost:8000/api/empresas/) |
+| | Ver/Editar (ID=1) | `/api/empresas/1/` |
+| **⚙️ Equipos** | Lista/Crear | [/api/equipos/](http://localhost:8000/api/equipos/) |
+| | Ver/Editar (ID=1) | `/api/equipos/1/` |
+| **👤 Usuarios** | Lista/Crear | [/api/usuarios/](http://localhost:8000/api/usuarios/) |
+| **🔧 Técnicos** | Lista/Crear | [/api/tecnicos/](http://localhost:8000/api/tecnicos/) |
+| **📅 Planes** | Lista/Crear | [/api/planes-mantencion/](http://localhost:8000/api/planes-mantencion/) |
+| **📋 Órdenes** | Lista/Crear | [/api/ordenes-trabajo/](http://localhost:8000/api/ordenes-trabajo/) |
 
 **Ventajas:**
 - ✅ **Formularios HTML nativos** para crear/editar datos (¡como Excel!)
 - ✅ **Login visual** en la esquina superior derecha
+- ✅ **Navegación por categorías** desde la página principal `/api/`
 - ✅ **Botones DELETE, PUT, POST** integrados
 - ✅ Sin instalaciones adicionales ni conocimientos técnicos
 

@@ -166,12 +166,39 @@ python manage.py runserver
 
 El servidor estará disponible en: `http://localhost:8000/`
 
-## 📚 Documentación de la API
+## 🖥️ Panel de Administración Visual (Django Admin)
 
-El proyecto cuenta con documentación viva. Una vez iniciado el servidor, visita:
+Además de Swagger, el sistema incluye el **Panel de Administración** tradicional de Django, ideal para evaluadores que no están familiarizados con herramientas API.
 
-*   **Swagger UI (Recomendado):** [http://localhost:8000/api/schema/swagger-ui/](http://localhost:8000/api/schema/swagger-ui/)
-*   **ReDoc:** [http://localhost:8000/api/schema/redoc/](http://localhost:8000/api/schema/redoc/)
+**Acceso:** [http://localhost:8000/admin/](http://localhost:8000/admin/)
+**Credenciales:** Usuario: `admin` / Contraseña: `admin123`
+
+En este panel podrás crear, editar y eliminar registros con una interfaz gráfica familiar (similar a Excel o formularios web). Es la forma más intuitiva de probar el sistema sin conocimientos técnicos.
+
+## 📚 Formas de Probar el Sistema
+
+El proyecto ofrece **tres interfaces** para interactuar con la API, ordenadas de más intuitiva a más técnica:
+
+### 1️⃣ **API Navegable (Recomendado para evaluación)**
+La forma más sencilla de probar el sistema. Es una interfaz HTML generada automáticamente por Django REST Framework.
+
+**Acceso:** Simplemente ve a cualquier endpoint en tu navegador, por ejemplo:
+- [http://localhost:8000/api/empresas/](http://localhost:8000/api/empresas/)
+- [http://localhost:8000/api/equipos/](http://localhost:8000/api/equipos/)
+
+**Ventajas:**
+- ✅ **Formularios HTML nativos** para crear/editar datos (¡como Excel!)
+- ✅ **Login visual** en la esquina superior derecha
+- ✅ **Botones DELETE, PUT, POST** integrados
+- ✅ Sin instalaciones adicionales ni conocimientos técnicos
+
+### 2️⃣ **Swagger UI (Para desarrolladores)**
+Documentación interactiva más técnica.
+- [http://localhost:8000/api/schema/swagger-ui/](http://localhost:8000/api/schema/swagger-ui/)
+
+### 3️⃣ **ReDoc (Solo lectura)**
+Vista de documentación estática.
+- [http://localhost:8000/api/schema/redoc/](http://localhost:8000/api/schema/redoc/)
 
 ### 🎓 Guía de Prueba Paso a Paso (Tutorial)
 Para entender la lógica del sistema, recomendamos seguir este flujo en Swagger:

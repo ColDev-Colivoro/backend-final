@@ -21,7 +21,7 @@ Sigue estos pasos para levantar el proyecto localmente:
 
 ### 1. Clonar el Repositorio
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone "https://github.com/ColDev-Colivoro/backend-final.git"
 cd backend_final
 ```
 
@@ -67,7 +67,9 @@ El proyecto cuenta con documentación viva. Una vez iniciado el servidor, visita
     *   Prueba los endpoints directamente desde el navegador.
 *   **ReDoc:** [http://localhost:8000/api/schema/redoc/](http://localhost:8000/api/schema/redoc/)
 
-## 🧪 Endpoints Principales
+## 🧪 Endpoints de la API
+
+A continuación se listan todos los endpoints disponibles. Cabe destacar que cada recurso principal soporta operaciones completas (GET, POST, PUT, PATCH, DELETE).
 
 | Recurso | Ruta API | Descripción |
 | :--- | :--- | :--- |
@@ -75,10 +77,11 @@ El proyecto cuenta con documentación viva. Una vez iniciado el servidor, visita
 | **Empresas** | `/api/v1/empresas/` | Gestión de Clientes |
 | **Equipos** | `/api/v1/equipos/` | Inventario de Máquinas |
 | **Técnicos** | `/api/v1/tecnicos/` | Perfiles de Staff |
-| **Órdenes** | `/api/v1/ordenes-trabajo/` | Gestión de flujos de trabajo |
+| **Planes** | `/api/v1/planes-mantencion/` | Definición de rutinas |
+| **Órdenes** | `/api/v1/ordenes-trabajo/` | Gestión de flujos de trabajo en terreno |
 
 ## 👥 Autores
-*   **Nombre del Estudiante** - *Desarrollador Backend*
+*   **Jose Colivoro** - *Desarrollador Backend*
 
 ---
 *Desarrollado para Inacap - Primavera 2025*

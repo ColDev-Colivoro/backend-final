@@ -125,5 +125,15 @@ A continuación se listan todos los endpoints disponibles. Cabe destacar que cad
 ## 👥 Autores
 *   **Jose Colivoro** - *Desarrollador Backend*
 
+## 🔮 Puntos de Mejora y Futuro (Roadmap)
+
+Aunque el sistema cumple con el estándar "Nivel 10", siempre hay espacio para crecer. Las siguientes son mejoras propuestas para una versión 2.0:
+
+1.  **Dockerización:** Crear un `Dockerfile` y `docker-compose.yml` para desplegar el entorno completo (Django + DB + Redis) con un solo comando.
+2.  **Notificaciones en Tiempo Real:** Implementar correos electrónicos automáticos a los técnicos cuando se les asigna una nueva Orden de Trabajo (actualmente sugerido en el código).
+3.  **Caché con Redis:** Implementar caché para los endpoints de lectura frecuente (`/equipos/`, `/empresas/`) para reducir la carga en la base de datos.
+4.  **CI/CD:** Configurar GitHub Actions para correr pruebas automáticas (linting y tests unitarios) en cada Push.
+5.  **Dashboard de Métricas:** Crear un endpoint de reportería que entregue estadísticas como "Tiempo promedio de reparación" o "Técnico más productivo".
+
 ---
 *Desarrollado para Inacap - Primavera 2025*

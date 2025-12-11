@@ -329,6 +329,22 @@ A continuación se listan todos los endpoints disponibles. Cabe destacar que cad
 | **Planes** | `/api/planes-mantencion/` | Definición de rutinas |
 | **Órdenes** | `/api/ordenes-trabajo/` | Gestión de flujos de trabajo en terreno |
 
+
+## 🧪 Pruebas y Scripts
+
+### Ejecutar Pruebas
+Para ejecutar las pruebas del sistema (Validaciones y Flujo E2E):
+```bash
+python manage.py test
+```
+
+### Crear Superusuario
+El script de creación de superusuario se encuentra en la carpeta `scripts/`. Para ejecutarlo:
+```bash
+python scripts/crear_superusuario.py
+```
+Este script creará un superusuario por defecto (`admin` / `admin123`) si no existe.
+
 ## 👥 Autores
 *   **Jose Colivoro** - *Desarrollador Backend*
 

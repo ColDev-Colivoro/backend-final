@@ -244,10 +244,13 @@ El sistema ofrece **tres formas** de interactuar con la API. Cada una está dise
 
 **PASO 2: Autorizar tus Peticiones**
 1. Ve al **botón verde "Authorize"** (candado) en la parte superior de la página
-2. En el campo que dice "Value", escribe: `Bearer ` seguido del token que copiaste
+2. Se abrirá una ventana con **dos opciones de autenticación**:
+   - `cookieAuth (apiKey)` → **NO lo uses** (es para la API Navegable)
+   - `jwtAuth (http, Bearer)` → **Usa este** ✅
+3. En el campo de `jwtAuth`, escribe: `Bearer ` seguido del token que copiaste
    - Ejemplo: `Bearer eyJhbGciOiJIUzI1NI1NiJ9.eyJ0b2tlbl90eXBlIjoi...`
-3. Click en **"Authorize"** y luego **"Close"**
-4. ✅ Ahora verás candados cerrados 🔒 en todos los endpoints protegidos
+4. Click en **"Authorize"** y luego **"Close"**
+5. ✅ Ahora verás candados cerrados 🔒 en todos los endpoints protegidos
 
 **PASO 3: Usar los Endpoints Autenticados**
 1. Ve a cualquier endpoint (por ejemplo `POST /api/empresas/`)

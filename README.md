@@ -181,11 +181,17 @@ El sistema ofrece **tres formas** de interactuar con la API. Cada una está dise
 
 ---
 
-### 1️⃣ API Navegable de Django REST Framework ⭐ **(Recomendado)**
+### 1️⃣ API Navegable de Django REST Framework ⭐ **(RECOMENDADO)**
 
 **¿Qué es?** Una interfaz HTML automática que convierte los endpoints en páginas web con formularios.
 
-**¿Para quién?** Evaluadores, profesores y usuarios no técnicos. No requiere conocimientos de programación.
+**¿Por qué es la mejor opción?**
+- ✅ **Cero conocimientos técnicos necesarios**
+- ✅ **Login con formulario visual** (como cualquier sitio web)
+- ✅ **Navegación intuitiva** entre módulos
+- ✅ **Formularios autocompletados** para crear datos
+
+**¿Para quién?** Evaluadores, profesores y cualquier persona sin experiencia en APIs.
 
 **Cómo usarla:**
 1. **Página Principal:** [http://localhost:8000/api/](http://localhost:8000/api/)
@@ -207,27 +213,61 @@ El sistema ofrece **tres formas** de interactuar con la API. Cada una está dise
 | **📅 Planes** | Lista/Crear | [/api/planes-mantencion/](http://localhost:8000/api/planes-mantencion/) |
 | **📋 Órdenes** | Lista/Crear | [/api/ordenes-trabajo/](http://localhost:8000/api/ordenes-trabajo/) |
 
-**Ventajas:**
-- ✅ Formularios HTML (como Excel)
-- ✅ Login visual integrado
-- ✅ Navegación por categorías
-- ✅ Botones para DELETE/PUT/POST
-
 ---
 
-### 2️⃣ Swagger UI (OpenAPI 3.0)
+### 2️⃣ Swagger UI (OpenAPI 3.0) - Para Desarrolladores
 
-**¿Qué es?** Documentación interactiva generada automáticamente desde el código.
+**¿Qué es?** Documentación técnica interactiva generada automáticamente desde el código.
 
-**¿Para quién?** Desarrolladores y usuarios técnicos que quieren probar endpoints desde un solo lugar.
+**¿Por qué usarlo?** Si necesitas ver todos los endpoints en un solo lugar, con documentación completa de schemas y validaciones.
+
+**¿Para quién?** Desarrolladores y usuarios técnicos familiarizados con APIs REST.
 
 **Acceso:** [http://localhost:8000/api/schema/swagger-ui/](http://localhost:8000/api/schema/swagger-ui/)
 
-**Características:**
-- 📝 Documentación completa de schemas
-- 🔐 Sistema de autorización JWT
-- ✨ Prueba directa de endpoints
-- 📊 Visualización de modelos
+**Tutorial Detallado (Importante: sigue estos pasos en orden):**
+
+**PASO 1: Obtener Token de Autenticación**
+1. Busca el endpoint `POST /api/auth/login/` en la lista
+2. Haz click en el endpoint para expandirlo
+3. Click en el botón **"Try it out"** (esquina derecha)
+4. Verás un **campo de texto editable** con un ejemplo de JSON
+5. **Edita el JSON** y reemplaza los valores por:
+   ```json
+   {
+     "username": "admin",
+     "password": "admin123"
+   }
+   ```
+6. Click en el botón azul **"Execute"**
+7. En la sección "Responses" abajo, **copia el valor del campo `access`** (el token largo)
+
+**PASO 2: Autorizar tus Peticiones**
+1. Ve al **botón verde "Authorize"** (candado) en la parte superior de la página
+2. En el campo que dice "Value", escribe: `Bearer ` seguido del token que copiaste
+   - Ejemplo: `Bearer eyJhbGciOiJIUzI1NI1NiJ9.eyJ0b2tlbl90eXBlIjoi...`
+3. Click en **"Authorize"** y luego **"Close"**
+4. ✅ Ahora verás candados cerrados 🔒 en todos los endpoints protegidos
+
+**PASO 3: Usar los Endpoints Autenticados**
+1. Ve a cualquier endpoint (por ejemplo `POST /api/empresas/`)
+2. Click en **"Try it out"**
+3. **Edita el JSON** con tus datos reales
+4. Click en **"Execute"**
+5. ¡Verás la respuesta del servidor abajo!
+
+**Nota sobre `/api/auth/refresh/`:**
+- ⚠️ Este endpoint NO es para login inicial
+- Solo se usa para **renovar un token que está por expirar**
+- Usa el `refresh` token (no el `access`) que obtuviste en el login
+- Si estás empezando, ignora este endpoint
+
+**Características Técnicas:**
+- 📝 Documentación completa de schemas (tipos, validaciones, ejemplos)
+- 🔐 Sistema de autorización JWT integrado
+- ✨ Botón "Execute" para probar en vivo
+- 📊 Visualización de modelos y respuestas
+- 💾 Descarga de esquema OpenAPI en JSON/YAML
 
 ---
 
@@ -243,30 +283,18 @@ El sistema ofrece **tres formas** de interactuar con la API. Cada una está dise
 
 ---
 
-### 🎓 Guía de Prueba Paso a Paso (Tutorial)
-Para entender la lógica del sistema, recomendamos seguir este flujo en Swagger:
+## 🎓 Guía de Prueba Completa (Recomendación de Uso)
 
-1.  **Autenticación (Login):**
-    *   Ve al endpoint `POST /api/auth/login/`.
-    *   Ingresa las credenciales (User: `admin`, Pass: `admin123`).
-    *   Copia el `access` token de la respuesta.
-    *   Sube al botón **"Authorize"** (candado verde) y escribe: `Bearer <tu_token_aqui>`.
+**Para evaluadores no técnicos:** Usa la **API Navegable** ([/api/](http://localhost:8000/api/)). Es visual, intuitiva y no requiere conocimientos previos.
 
-2.  **Crear una Empresa (El Cliente):**
-    *   Ve a `POST /api/empresas/`.
-    *   Crea una empresa (Ej: "Forestal Biobío").
-    *   **Nota:** Copia el `id` que te devuelve el sistema.
+**Para desarrolladores:** Usa **Swagger UI** si necesitas ver todos los endpoints con documentación técnica completa.
 
-3.  **Registrar un Equipo (El Activo):**
-    *   Ve a `POST /api/equipos/`.
-    *   Usa el `id` de la empresa anterior.
-    *   Define el equipo (Ej: "Grúa Horquilla").
-
-4.  **Crear Plan y Orden:**
-    *   Ahora puedes crear un `PlanMantencion` para ese equipo.
-    *   Finalmente, genera una `OrdenTrabajo` asignando un técnico.
-
-Este flujo demuestra la integridad referencial y la lógica de negocio del sistema.
+### Flujo Recomendado para Probar el Sistema (API Navegable):
+1. **Login:** [/api-auth/login/](http://localhost:8000/api-auth/login/) → `admin` / `admin123`
+2. **Crear Empresa:** [/api/empresas/](http://localhost:8000/api/empresas/) → Usa el formulario HTML
+3. **Crear Equipo:** [/api/equipos/](http://localhost:8000/api/equipos/) → Asigna a la empresa creada
+4. **Crear Plan:** [/api/planes-mantencion/](http://localhost:8000/api/planes-mantencion/) → Asocia al equipo
+5. **Verificar:** Navega de vuelta a `/api/` y explora las relaciones
 
 ## 🧪 Endpoints de la API
 

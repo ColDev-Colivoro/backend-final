@@ -1,7 +1,39 @@
 # Sistema de Gestión de Mantención Industrial (API RESTful)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue) ![Django](https://img.shields.io/badge/Django-5.0%2B-green) ![DRF](https://img.shields.io/badge/DRF-3.14%2B-red) ![Status](https://img.shields.io/badge/Status-Activo-success)
 
-Backend profesional para la gestión de empresas, equipos técnicos y órdenes de trabajo de mantenimiento. Desarrollado como parte de la Evaluación 4 (TI3041).
+## 📖 Introducción y Visión General
+
+Bienvenido al repositorio del **Sistema de Gestión de Mantención Industrial**. Este proyecto representa la columna vertebral ("backend") de una plataforma diseñada para digitalizar y optimizar las operaciones de mantenimiento en el sector industrial de la región del Biobío.
+
+El sistema resuelve la necesidad crítica de **trazabilidad y control**, permitiendo a las empresas gestionar sus activos, programar mantenimientos preventivos y monitorear la ejecución de órdenes de trabajo en tiempo real.
+
+### 🧩 ¿Qué estamos presentando?
+Más que un simple conjunto de archivos, presentamos una **API RESTful de Nivel Corporativo**. No es una página web tradicional (HTML/CSS), sino un motor lógico inteligente que:
+1.  **Recibe peticiones** (Ej: "Crear una nueva orden de trabajo").
+2.  **Procesa reglas de negocio** (Ej: "Verificar si el técnico está disponible").
+3.  **Persiste datos** de forma segura en una base de datos relacional.
+4.  **Responde** en formato JSON estándar para ser consumido por cualquier cliente (Web, Móvil, IoT).
+
+---
+
+## 💡 Decisión Técnica: Interfaz de Documentación (Swagger)
+
+Como este es un proyecto Backend, no modificamos pixels, manipulamos datos. Para hacer tangible nuestro trabajo y permitir pruebas fluidas, hemos implementado **Swagger UI (vía OpenAPI 3.0)** como interfaz principal de interacción.
+
+### ¿Qué es Swagger?
+Es una suite de herramientas que convierte nuestro código en una página web interactiva. Lee automáticamente nuestros "contratos" de API (Endpoints, Modelos, Validaciones) y genera una interfaz donde cualquier persona puede probar el sistema pulsando botones, sin saber programar.
+
+### ¿Por qué lo elegimos?
+Elegimos la automatización con **Drf-Spectacular** en lugar de documentación manual por tres razones:
+1.  **Verdad Única:** La documentación se genera desde el código. Si el código cambia, la documentación se actualiza sola. Nunca estará obsoleta.
+2.  **Interactividad:** Permite ejecutar pruebas (POST, GET) directamente desde el navegador.
+3.  **Estándar de Industria:** OpenAPI es el estándar mundial. Facilita la integración futura con equipos Frontend.
+
+### ¿Qué alternativa hubiésemos usado?
+Si no hubiéramos implementado Swagger, la alternativa tradicional habría sido entregar una **Colección de Postman** (un archivo JSON estático) o un documento PDF técnico.
+*   **Desventaja de la alternativa:** Requiere que el usuario instale software extra (Postman) e importe archivos manualmente cada vez que hay un cambio, aumentando el riesgo de errores y desincronización.
+
+---
 
 ## 🚀 Características Destacadas
 *   **API RESTful Completa:** CRUD para Empresas, Equipos, Técnicos, Planes y Órdenes.

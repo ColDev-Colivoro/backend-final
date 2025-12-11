@@ -48,30 +48,63 @@ El sistema utiliza una base de datos relacional robusta. A continuación se pres
 
 ```mermaid
 erDiagram
-    User ||--|| Tecnico : "Tiene un Perfil"
-    Empresa ||--|{ Equipo : "Posee"
-    Equipo ||--o{ PlanMantencion : "Tiene planes"
-    Equipo ||--o{ OrdenTrabajo : "Recibe mantenimiento"
-    PlanMantencion ||--|{ OrdenTrabajo : "Genera"
-    Tecnico ||--o{ OrdenTrabajo : "Ejecuta"
+    Usuario ||--|| Tecnico : "Tiene Perfil (1:1)"
+    Empresa ||--|{ Equipo : "Posee (1:N)"
+    Equipo ||--o{ PlanMantencion : "Tiene Planes (1:N)"
+    PlanMantencion ||--|{ OrdenTrabajo : "Genera (1:N)"
+    Equipo ||--|{ OrdenTrabajo : "Recibe (1:N)"
+    Tecnico ||--|{ OrdenTrabajo : "Ejecuta (1:N)"
+
+    Usuario {
+        int id PK
+        string username
+        string email
+        string first_name
+        string last_name
+        bool is_staff
+    }
+
+    Tecnico {
+        int id PK
+        int usuario_id FK
+        string nombre_completo
+        string especialidad "ELECTRICO, MECANICO..."
+        string telefono
+    }
 
     Empresa {
-        string nombre
+        int id PK
+        string nombre "Indexed"
         string rut
         string direccion
+        datetime creado_en
     }
+
     Equipo {
+        int id PK
+        int empresa_id FK
         string nombre
-        string numero_serie
+        string numero_serie "Unique"
         bool es_critico
+        date fecha_instalacion
     }
-    Tecnico {
-        string nombre_completo
-        string especialidad
+
+    PlanMantencion {
+        int id PK
+        int equipo_id FK
+        string nombre
+        int frecuencia_dias
+        bool activo
     }
+
     OrdenTrabajo {
-        string estado
-        date fecha_programada
+        int id PK
+        int plan_id FK
+        int equipo_id FK
+        int tecnico_id FK
+        string estado "PROGRAMADA, EN_PROGRESO..."
+        datetime fecha_programada
+        datetime completado_en "Nullable"
         text notas
     }
 ```

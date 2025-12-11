@@ -171,8 +171,32 @@ El servidor estará disponible en: `http://localhost:8000/`
 El proyecto cuenta con documentación viva. Una vez iniciado el servidor, visita:
 
 *   **Swagger UI (Recomendado):** [http://localhost:8000/api/schema/swagger-ui/](http://localhost:8000/api/schema/swagger-ui/)
-    *   Prueba los endpoints directamente desde el navegador.
 *   **ReDoc:** [http://localhost:8000/api/schema/redoc/](http://localhost:8000/api/schema/redoc/)
+
+### 🎓 Guía de Prueba Paso a Paso (Tutorial)
+Para entender la lógica del sistema, recomendamos seguir este flujo en Swagger:
+
+1.  **Autenticación (Login):**
+    *   Ve al endpoint `POST /api/auth/login/`.
+    *   Ingresa las credenciales (User: `admin`, Pass: `admin123`).
+    *   Copia el `access` token de la respuesta.
+    *   Sube al botón **"Authorize"** (candado verde) y escribe: `Bearer <tu_token_aqui>`.
+
+2.  **Crear una Empresa (El Cliente):**
+    *   Ve a `POST /api/empresas/`.
+    *   Crea una empresa (Ej: "Forestal Biobío").
+    *   **Nota:** Copia el `id` que te devuelve el sistema.
+
+3.  **Registrar un Equipo (El Activo):**
+    *   Ve a `POST /api/equipos/`.
+    *   Usa el `id` de la empresa anterior.
+    *   Define el equipo (Ej: "Grúa Horquilla").
+
+4.  **Crear Plan y Orden:**
+    *   Ahora puedes crear un `PlanMantencion` para ese equipo.
+    *   Finalmente, genera una `OrdenTrabajo` asignando un técnico.
+
+Este flujo demuestra la integridad referencial y la lógica de negocio del sistema.
 
 ## 🧪 Endpoints de la API
 

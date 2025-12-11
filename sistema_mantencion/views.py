@@ -9,7 +9,7 @@ def api_root(request, format=None):
     """
     return Response({
         '🔐 Autenticación': {
-            'login_session': reverse('api-auth-login', request=request, format=format),
+            'login_session': request.build_absolute_uri('/api-auth/login/'),
             'login_jwt': reverse('token_obtain_pair', request=request, format=format),
             'refresh_jwt': reverse('token_refresh', request=request, format=format),
         },

@@ -154,10 +154,27 @@ python manage.py migrate
 ```
 
 ### 5. Crear Superusuario (Administrador)
+
+**Opción A: Automático (Recomendado) ⭐**
+```bash
+python crear_superusuario.py
+```
+Este script crea automáticamente el usuario:
+- **Usuario:** `admin`
+- **Contraseña:** `admin123`
+- **Email:** `admin@mantencion.local`
+
+**Opción B: Manual**
 ```bash
 python manage.py createsuperuser
-# Sigue las instrucciones en pantalla
+# Ingresa los datos cuando te los pida:
+# Username: admin
+# Email: (presiona Enter)
+# Password: admin123
+# Password (again): admin123
 ```
+
+**Nota:** Ambas opciones son válidas. La opción A es más rápida para desarrollo/evaluación.
 
 ### 6. Iniciar el Servidor
 ```bash

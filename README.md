@@ -10,6 +10,48 @@ Backend profesional para la gestión de empresas, equipos técnicos y órdenes d
 *   **Optimización:** Consultas SQL optimizadas (`select_related`) y filtros avanzados.
 *   **Arquitectura:** Estructura modular y escalable.
 
+## 🏗️ Arquitectura y Modelado de Datos
+
+El sistema utiliza una base de datos relacional robusta. A continuación se presenta el Diagrama Entidad-Relación (ER) del sistema:
+
+```mermaid
+erDiagram
+    User ||--|| Tecnico : "Tiene un Perfil"
+    Empresa ||--|{ Equipo : "Posee"
+    Equipo ||--o{ PlanMantencion : "Tiene planes"
+    Equipo ||--o{ OrdenTrabajo : "Recibe mantenimiento"
+    PlanMantencion ||--|{ OrdenTrabajo : "Genera"
+    Tecnico ||--o{ OrdenTrabajo : "Ejecuta"
+
+    Empresa {
+        string nombre
+        string rut
+        string direccion
+    }
+    Equipo {
+        string nombre
+        string numero_serie
+        bool es_critico
+    }
+    Tecnico {
+        string nombre_completo
+        string especialidad
+    }
+    OrdenTrabajo {
+        string estado
+        date fecha_programada
+        text notas
+    }
+```
+
+## 💻 Tecnologías y Librerías
+Este proyecto utiliza un stack moderno y eficiente:
+*   **Django 5.0+**: Framework web de alto nivel.
+*   **Django REST Framework**: Construcción de API.
+*   **SimpleJWT**: Autenticación segura por tokens.
+*   **Drf-Spectacular**: Generación de esquemas OpenAPI 3.0.
+*   **Django-Filter**: Filtrado avanzado de querysets.
+
 ## 🛠️ Requisitos del Sistema
 *   Python 3.10 o superior
 *   Pip (Gestor de paquetes)
